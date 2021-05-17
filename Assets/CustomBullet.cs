@@ -83,7 +83,7 @@ public class CustomBullet : MonoBehaviour
         //Assign material collider
         GetComponent<SphereCollider>().material = physic_mat;
 
-        //Sat gravity
+        //Set gravity
         rb.useGravity = useGravity;
     }
 
