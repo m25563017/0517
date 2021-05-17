@@ -15,6 +15,7 @@ public class CustomBullet : MonoBehaviour
     //Damage
     public int explosionDamge;
     public float explosionRange;
+    public float explosionForce;
 
     //Lifetime
     public int maxCollisions;
@@ -45,6 +46,20 @@ public class CustomBullet : MonoBehaviour
 
         //Check for enemies
         Collider[] enemies = Physics.OverlapSphere(transform.position, explosionRange, whatIsEnemies);
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            //Get component of enemy and call Take Damge
+
+            //Just an example!
+            //enemies[i].GetComponent<ShootingAi>().TakeDamage(explosionDamge);
+
+            //Add explosion force (if enemy has a rigbody)
+            if (enemies[i].GetComponent<Rigidbody>())
+                (enemies[i].GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRange);
+
+        }
+        //Add a little delay,just to make sure everything works fine
+        Invoke("Delat", 0.05f);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -70,7 +85,12 @@ public class CustomBullet : MonoBehaviour
 
         //Sat gravity
         rb.useGravity = useGravity;
+    }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, explosionRange);
     }
 }
 
